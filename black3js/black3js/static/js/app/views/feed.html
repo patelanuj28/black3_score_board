@@ -1,0 +1,86 @@
+<br>
+<div class="row">
+    <div class="span9 main">
+        <div class="row">
+            <div class="span9">
+                <a class="btn btn-success" ng-click="open1('create')"> New Game</a>
+
+                <div modal="gameModalCreate" close="close1('create')" options="opts">
+                    <a ng-click="close1('create')" class="close" data-dismiss="modal">×</a>
+
+                    <div class="modal-header">
+                        <h4>Add Game</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" ng-submit="create()">
+                            <div class="control-group">
+                                <label class="control-label" for="id_total_players">Total Players</label>
+                                <div class="controls">
+                                    <input type="text" id="id_total_players" placeholder="Title" ng-model="game.total_players" required  integer min="2" max="12">
+                                </div>
+                                <font color=red>
+                                    <span ng-show="gmae.total_players.$error.integer">This is not valid integer!</span>
+                                    <span ng-show="game.total_players.$error.min || game.total_players.$error.max">
+                                        The value must be in range 2 to 12!</span>
+                                </font>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="Submit">Submit</button>
+                                <button class="btn btn-danger" ng-click="close1('create')">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+<!--
+        <div ng-repeat="game in games">
+            <div class="content">
+                <a class="clip-opengame/" href="#/game/{[{game.id}]}">
+                    <h4>Game: {[{game.id}]}</h4>
+                </a>
+                <div class="meta clips-note">
+                    <p>
+                        Total Players: {[{game.total_players}]}
+                    </p>
+                </div>
+                <small><abbr time-ago title="{[{game.created_on}]}" class="date"></abbr></small>
+            </div>                           
+        </div>
+    </div>
+    -->
+    <br />
+<table ng-table class="table" >
+    <tr><th>Game</th><th>Total Players</th><th>Total Cards</th><th>Cards per Player</th><th>Action</th></tr>
+    <tr ng-repeat="game in games">
+    <td data-title="'Game #'">
+    <strong>{[{game.id}]}</strong>
+    </td>
+    <td data-title="'Total Players'">
+    {[{game.total_players}]}
+    </td>
+    <td data-title="'Total Cards'">
+        {[{ getTotalCards(game.total_players) }]}    
+    </td>
+    <td data-title="'Cards per player'">
+        {[{ getIndividualCards(game.total_players) }]}    
+        
+    </td>
+    <!--
+    <td data-title="'Cards per player'">
+        {[{game.created_on}]}    
+        
+    </td>-->    
+    <td >
+        <a class="clip-opengame btn btn-success" href="#/game/{[{game.id}]}">Detail</a> 
+        <a class="clip-opengame btn btn-success" href="#/score/{[{game.id}]}">Score</a>        
+        <!--<a class="clip-opengame btn btn-success" href="/line/{[{game.id}]}">Chart</a> -->
+        <a class="clip-opengame btn btn-success" href="/chart">Chart</a>
+        <button class="clip-opengame btn btn-danger" ng-click="delete(game.id)">Delete</button> 
+    </td>
+    </tr>
+</table>
+
+</div>

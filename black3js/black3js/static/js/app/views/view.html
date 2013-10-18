@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="span9 main">
+        <div class="row">
+            <div class="span9">
+                <h3>Game: {[{ games.id }]} <small>(<abbr time-ago title="{[{games.created_on}]}" class="date"></abbr>)</small></h3>
+                <p>
+                    Total Players: {[{ games.total_players }]}
+                </p>
+                <p>
+                    Total Cards : {[{ getTotalCards(games.total_players) }]}    
+                </p>
+                <p>   
+                    Cards Per Player: {[{ getIndividualCards(games.total_players) }]}    
+                </p>
+                <p> Players : <span ng-repeat="player in games.players">{[{player.name}]}, &nbsp;</span></p>
+                <!--
+                <p>
+                    Created: {[{ games.created_on }]}
+                </p>
+                <p>
+                    Updated: {[{ games.updated_on }]}
+                </p>
+                -->
+            </div>           
+        </div>
+        <div ng-show="games.players.length==0">
+        <div class="row" style="margin-left:0px;">
+            <h4>Please enter name of {[{games.total_players}]} player:</h4>
+            <label ng-show="error" ng-init="error"><font color="red">{[{error}]}</font></label>
+            <input type="hidden" name='total_players' value="{[{games.total_players}]}">
+            <div ng-repeat="j in getNumber(games.total_players)">
+                <label>Player {[{$index+1}]}</label>
+                <input type='text' name="player[]" required ng-model="user.name" min=2 max=50>
+            </div>
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="span9">
+                <!--<a class="btn btn-success" ng-click="open('edit')"> Edit</a>-->
+                <a class="btn btn-success" ng-click="addPlayer()" ng-show="games.players.length==0">Add Player</a>
+                <a class="btn btn-success" href="#/score/{[{games.id}]}"> Score</a>
+                <a class="btn btn-success" href="#/"> Go back</a>
+                <div modal="gameModalEdit" close="close('create')" options="opts">
+                    <a ng-click="close('edit')" class="close" data-dismiss="modal">×</a>
+                    <div class="modal-header">
+                        <h4>Edit Game: {[{games.id}]}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="control-group">
+                                <label class="control-label" for="id_total_players">Total Players</label>
+                                <div class="controls">
+                                    <input type="text" id="id_total_players" placeholder="Total Players" ng-model="games.total_players">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" ng-click="update()">Update</button>
+                        <button class="btn btn-danger" ng-click="close('edit')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

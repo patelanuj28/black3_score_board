@@ -1,0 +1,73 @@
+<div class="row">
+            <div class="span9">
+                <!--<a class="btn btn-success" ng-click="open('edit')"> Edit</a>-->
+                <a class="btn btn-success" href="#/"> Go back</a>                
+            </div>
+</div>
+<div class="row">
+    <div class="span9 main">
+        <div class="row">
+            <div class="span9">
+                <h3>Game: {[{ games.id }]} <small>(<abbr time-ago title="{[{games.created_on}]}" class="date"></abbr>)</small></h3>
+                <p>
+                    Total Players: {[{ games.total_players }]}
+                </p>
+                <p>
+                    Total Cards : {[{ getTotalCards(games.total_players) }]}    
+                </p>
+                <p>   
+                    Cards Per Player: {[{ getIndividualCards(games.total_players) }]}    
+                </p>
+                <!--
+                <p>
+                    Created: {[{ games.created_on }]}
+                </p>
+                <p>
+                    Updated: {[{ games.updated_on }]}
+                </p>
+                -->
+            </div>           
+        </div>
+        <fieldset>
+        <form ng-submit="addScore()">
+        <legend>Score Board</legend>
+        <a class="clip-opengame btn btn-success" href="#/game/{[{games.id}]}" ng-show="games.players==0">Add Player</a> 
+        <table border="0px solid #000;" style="max-width: 100%; overflow-x: auto" ng-show="games.players != 0">
+        <th width="50px" align="left">#</th>
+        <th ng-repeat="player in games.players" style="min-width: 110px;"  align="left">              
+                {[{player.name}]}             
+        </th>
+        
+        
+        <tr ng-repeat="score in games.players[0].scores">
+            <td>{[{$index}]}</td>
+            <td ng-repeat="player in games.players" style="height=25px;"  align="left">                          
+                {[{player.scores[$parent.$index].score}]}
+            </td>
+        </tr>
+        <tr>
+            <td><font color="blue" style="font-weight: bold;">Total</font></td>
+            <td >                          
+                
+            </td>
+        </tr>
+        <tr>
+        <td>&nbsp;</td>
+        <td ng-repeat="player in games.players" style="height=25px;"  align="left">                          
+                <input type="text" name="{[{player.id}]}" integer value="" size="5"  style="width:100px;width: 100px; padding: 0px; border-top-width: 1px; margin-bottom: 0px;" />
+        </td>
+        </tr>
+        <tr><td colspan="{[{games.players.length+1}]}">&nbsp;<br /></td></tr>
+        <tr>
+            <td colspan="{[{games.players.length+1}]}" align="middle" >
+                
+                    <input type="submit" value="Add Score" class="btn btn-success" >
+                
+            </td>
+        </tr>
+        
+        </table> 
+        </form>   
+        </fieldset>
+    </div>
+</div>
