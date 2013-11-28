@@ -1,7 +1,9 @@
 <div class="row">
             <div class="span9">
                 <!--<a class="btn btn-success" ng-click="open('edit')"> Edit</a>-->
-                <a class="btn btn-success" href="#/"> Go back</a>                
+                <a class="btn btn-success" href="#/"> Home</a>                
+                <a class="clip-opengame btn btn-success" href="#/game/{[{games.id}]}">Detail</a> 
+                <a class="btn btn-success" href="/chart/{[{games.id}]}"> Chart</a>                
             </div>
 </div>
 <div class="row">
@@ -41,14 +43,20 @@
         
         <tr ng-repeat="score in games.players[0].scores">
             <td>{[{$index}]}</td>
-            <td ng-repeat="player in games.players" style="height=25px;"  align="left">                          
+            <td ng-repeat="player in games.players" style="height=25px;" class="individual_score{[{$index}]}"  align="left">                          
                 {[{player.scores[$parent.$index].score}]}
             </td>
         </tr>
         <tr>
+            <td>&nbsp;</td>
+            <td ng-repeat="player in games.players" style="height=25px;"  align="left">                   
+            &nbsp;
+            </td>
+        </tr>
+        <tr>
             <td><font color="blue" style="font-weight: bold;">Total</font></td>
-            <td >                          
-                
+            <td ng-repeat="player in games.players" style="height=25px;"  align="left">   
+                <b><font color="blue" style="font-weight: bold;">{[{player.total_scores}]}</font></b>
             </td>
         </tr>
         <tr>

@@ -1,5 +1,20 @@
 Black3js.controller('GameController', function ($scope, $location,  GlobalService, GameService, ScoreService,PlayersService, games) {
     $scope.games = games;
+
+    //console.log($scope.games.players);
+    if(games.players){
+        $.each($scope.games.players, function( index, value ) {
+            total = 0;        
+            value['total_scores'] = 0
+            $.each(value.scores, function(ind1, val1){
+                if(!isNaN(val1.score)) {
+                    value['total_scores'] += parseInt(val1.score);
+                }
+            });
+        });
+    }
+
+//    console.log($scope.games);
     
     $scope.globals = GlobalService;
     //options for modals

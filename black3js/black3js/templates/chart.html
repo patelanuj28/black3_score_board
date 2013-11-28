@@ -28,15 +28,26 @@
     <div class="span9 main">
         <div class="row">
             <div class="span9">
-                <a class="btn btn-success" href="../#/">Go Back</a>                
+                <a class="btn btn-success" href="../#/">Home</a>                
+                <!--<a class="clip-opengame btn btn-success" href="../#/game/{[{games.id}]}">Detail</a>                 
+                <a class="clip-opengame btn btn-success" href="../#/score/{[{games.id}]}">Score</a>                 -->
             </div>
+        </div>
+        <div>
+        <br />
+            {% for element in games %}
+            {{ element.id }}
+                {{ element.total_players }}
+            <br/>
+            {% endfor %}
         </div>
             <br />
                 <div id='container' style="width: 500px; height: 300px; position: absolute;float: right;"></div>
                 <div id='container1' style="width: 500px; height: 300px; position: absolute; padding-left: 500px; "></div>
-                <div id='container2' style="width: 400px; height: 400px; padding-top: 300px;"></div>
         </div>
     </div>
+    
+    
 
 {% endblock %}
 {% block extra_content %}

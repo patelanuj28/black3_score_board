@@ -40,7 +40,8 @@
                 <!--<a class="btn btn-success" ng-click="open('edit')"> Edit</a>-->
                 <a class="btn btn-success" ng-click="addPlayer()" ng-show="games.players.length==0">Add Player</a>
                 <a class="btn btn-success" href="#/score/{[{games.id}]}"> Score</a>
-                <a class="btn btn-success" href="#/"> Go back</a>
+                <a class="btn btn-success" href="/chart/{[{games.id}]}"> Chart</a>
+                <a class="btn btn-success" href="#/"> Home</a>
                 <div modal="gameModalEdit" close="close('create')" options="opts">
                     <a ng-click="close('edit')" class="close" data-dismiss="modal">×</a>
                     <div class="modal-header">

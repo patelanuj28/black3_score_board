@@ -100,14 +100,16 @@ class ScoreDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     model = Score
     serializer_class = ScoreSerializer
-
-
-
-
+    
 
 def chart(request, template_name="chart.html"):
+
+    #total_score = Game.objects.filter(score__game_id__exact='17').get('')
+    total_score = Game.objects.all()
     
-    
-    
-    return render_to_response(template_name, {}, context_instance=RequestContext(request))
+    #select p.name, sum(s.score) as total_score from game g, players p, score s where g.id=17 and  g.id = p.game_id and p.id = s.name_id group by p.name 
+#order by sum(s.score)
+
+
+    return render_to_response(template_name, {'games':total_score}, context_instance=RequestContext(request))
     
