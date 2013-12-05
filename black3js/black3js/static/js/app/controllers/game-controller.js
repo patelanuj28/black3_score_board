@@ -6,13 +6,17 @@ Black3js.controller('GameController', function ($scope, $location,  GlobalServic
         $.each($scope.games.players, function( index, value ) {
             total = 0;        
             value['total_scores'] = 0
-            $.each(value.scores, function(ind1, val1){
-                if(!isNaN(val1.score)) {
-                    value['total_scores'] += parseInt(val1.score);
-                }
-            });
+            if(value.scores){
+                $.each(value.scores, function(ind1, val1){
+                    if(!isNaN(val1.score)) {
+                        value['total_scores'] += parseInt(val1.score);
+                    }
+                });
+            }
         });
     }
+
+
 
 //    console.log($scope.games);
     
@@ -93,6 +97,46 @@ Black3js.controller('GameController', function ($scope, $location,  GlobalServic
         }, failureCb);
     };
 
+    $scope.deleteScoresRow = function(game_id, params){
+        removeRow = new Array();
+        $.each($scope.games.players, function(ind , val){
+            $.each(val.scores, function(a, b){
+                if (a == params){
+                    removeRow.push(b.id);
+                }
+            });
+        });
+        
+        var res=confirm('Are you sure you want to delete game '+ game_id+'?');
+        if (res == false)
+            return;
+
+        for(i=0;i<removeRow.length;i++){
+            ScoreService.remove(removeRow[i]).then(function (data){
+                console.log(removeRow[i] + "Removed successfully.");                
+                
+          /*  if(games.players){
+            $.each($scope.games.players, function( index, value ) {
+                total = 0;        
+                value['total_scores'] = 0
+                if(value.scores){
+                    $.each(value.scores, function(ind1, val1){
+                        if(!isNaN(val1.score)) {
+                            value['total_scores'] += parseInt(val1.score);
+                        }
+                    });
+                }
+            });
+        }
+        */
+            }, failureCb);
+        }
+        $location.path('/score/'+$scope.game_id+'/');
+
+        
+
+    }
+
     $scope.delete = function (game_id) {
         var res=confirm('Are you sure you want to delete game '+ game_id+'?');
         if (res == false)
@@ -136,10 +180,7 @@ Black3js.controller('GameController', function ($scope, $location,  GlobalServic
                    
                 });
             });
-            
-                
-            
-        
+        $location.path('/score/'+$scope.game_id+'/');    
         }
 
     };

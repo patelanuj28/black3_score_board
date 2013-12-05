@@ -41,6 +41,26 @@ Black3js.config(function ($routeProvider) {
                 }
             }
         })
+        .when("/score/:id/delete", {
+            templateUrl: "static/js/app/views/score.html",
+            controller: "GameController",
+            resolve: {
+                games: function ($route, GameService) {
+                    var game_id = $route.current.params.id
+                    return GameService.get(game_id);
+                }
+            }
+        })
+        .when("/score/:id/del", {
+            templateUrl: "static/js/app/views/score.html",
+            controller: "GameController",
+            resolve: {
+                games: function ($route, GameService) {
+                    var game_id = $route.current.params.id
+                    return GameService.get(game_id);
+                }
+            }
+        })
         .otherwise({
             redirectTo: '/'
         })

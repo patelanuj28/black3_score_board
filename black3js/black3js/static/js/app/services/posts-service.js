@@ -136,6 +136,19 @@ Black3js.factory('ScoreService', function ($http, $q) {
                 });
             return defer.promise;
         },
+        remove: function (score_id) {
+            var url = api_url + score_id + "/";
+            var defer = $q.defer();
+            $http({method: 'DELETE',
+                url: url,
+                data: score_id}).
+                success(function (data, status, headers, config) {
+                    defer.resolve(data);
+                }).error(function (data, status, headers, config) {
+                    defer.reject(status);
+                });
+            return defer.promise;
+        },
         list: function () {
             var defer = $q.defer();
             $http({method: 'GET', url: api_url}).
