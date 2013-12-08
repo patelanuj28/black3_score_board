@@ -6,8 +6,8 @@ Apps created using Angular JS, Django, Chartit and Django Rest Framework
 Thanks for looking at it. If you have any question please email me on 
 patelanuj28[at]gmail.com
 
-1.  virtualenv <<projectname>>
-2.  cd <<projectname>>
+1.  virtualenv projectname
+2.  cd projectname
 3.  source bin/activate
 4.  Clone the project from git hub repository
 5.  install python django packages using below command
