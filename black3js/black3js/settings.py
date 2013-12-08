@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'game',
     'rest_framework',
     'chartit',
+    'jsonify',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

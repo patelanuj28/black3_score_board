@@ -11,7 +11,8 @@ from game.serializers import GameSerializer, PlayersSerializer, ScoreSerializer,
 from chartit import DataPool, Chart
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
+from django.db import connection
+from django.http import HttpResponse
 
 
 
@@ -100,16 +101,38 @@ class ScoreDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     model = Score
     serializer_class = ScoreSerializer
-    
 
-def chart(request, template_name="chart.html"):
+def execute_query(query):
+    cursor = connection.cursor()
+    cursor.execute(query)
+    row = cursor.fetchall()
+
+    return row
+
+
+
+
+def chart(request, id,template_name="chart.html"):
+
+    if not id:
+         return render(request, 'myapp/index.html')
 
     #total_score = Game.objects.filter(score__game_id__exact='17').get('')
     total_score = Game.objects.all()
+
     
-    #select p.name, sum(s.score) as total_score from game g, players p, score s where g.id=17 and  g.id = p.game_id and p.id = s.name_id group by p.name 
+    t = '''select p.name, sum(s.score) as total_score from game g, players p, score s where g.id='''+id+''' and  g.id = p.game_id and p.id = s.name_id group by p.name order by sum(s.score) desc '''
+
+    rows = execute_query(t)
+
+    final_score = dict()
+    final_score = [[str(i[0]), int(i[1])] for i in rows]
+
+
+
+
 #order by sum(s.score)
-
-
-    return render_to_response(template_name, {'games':total_score}, context_instance=RequestContext(request))
+    
+    
+    return render_to_response(template_name, {'games':total_score, 'final_score': final_score}, context_instance=RequestContext(request))
     

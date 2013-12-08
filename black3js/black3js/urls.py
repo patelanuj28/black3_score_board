@@ -21,7 +21,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
 	url(r'^$', 'black3js.views.home', name="home"),
-    url(r'^chart/', 'game.views.chart', name='chart'),    
+    url(r'^chart/(\d+)', 'game.views.chart', name='chart'),    
     url(r'^admin/', include(admin.site.urls)),
     
     (r'^api/', include('game.urls')),

@@ -9,7 +9,7 @@ class Game(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     def __unicode__(self):
-        return self.id
+        return unicode(self.id)
     class Meta:
     	verbose_name= "Game"
     	verbose_name_plural = 'Games'
@@ -35,7 +35,7 @@ class Score(models.Model):
 	updated_on = models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
-		return self.score
+		return unicode(self.score)
 	class Meta:
 		verbose_name= "score"
 		verbose_name_plural = 'Scores'
